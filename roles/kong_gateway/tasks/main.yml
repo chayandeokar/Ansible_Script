@@ -10,6 +10,7 @@
     - unzip
     - wget
     - openssl
+    - luarocks
     - libssl-dev
     - gcc
     - perl
