@@ -6,3 +6,4 @@
 # Setup : 
 ## apt install ansible
 ## ansible-galaxy install geerlingguy.git
+## apt install luarocks
