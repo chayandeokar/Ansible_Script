@@ -3,6 +3,6 @@
 ## a. Building kong gateway in host (Note: do not use apt or dpkg to install kong. Should (use only source 2.8 latest)
 ## b. Setting up the auto startup script.
 
-Setup : 
--- > aapt install ansible
--- > ansible-galaxy install geerlingguy.git
+# Setup : 
+## apt install ansible
+## ansible-galaxy install geerlingguy.git
