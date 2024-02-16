@@ -1,0 +1,52 @@
+# roles/kong_gateway/tasks/main.yml
+
+- name: Install dependencies
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - git
+    - make
+    - unzip
+    - wget
+    - openssl
+    - libssl-dev
+    - gcc
+    - perl
+    - libpcre3
+    - libpcre3-dev
+    - zlib1g-dev
+    - libssl-dev
+    - libcurl4-openssl-dev
+    - libreadline-dev
+    - libyaml-dev  # Add libyaml-dev package
+    - liblua5.1-dev
+- name: Install lyaml using luarocks
+  command: luarocks install lyaml
+
+- name: Clone Kong repository
+  git:
+    repo: https://github.com/Kong/kong.git
+    dest: /opt/kong
+    version: 2.8.0
+
+- name: Build Kong Gateway
+  shell: |
+    cd /opt/kong
+    make install
+  args:
+    executable: /bin/bash
+
+- name: Set up auto-startup script
+  template:
+    src: kong.init
+    dest: /etc/init.d/kong
+  notify: restart kong
+  become: true
+
+- name: Ensure Kong init script is executable
+  command: chmod +x /etc/init.d/kong
+  become: true
+
+- name: Start Kong service
+  command: /etc/init.d/kong start
