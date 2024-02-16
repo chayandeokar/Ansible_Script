@@ -1,0 +1,4 @@
+# roles/kong_gateway/meta/main.yml
+
+dependencies:
+  - name: "geerlingguy.git"
